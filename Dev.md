@@ -7,13 +7,15 @@
 
 正文与强调之间空一行。  
 
+正文中加入代码块两端空格。  
+
 ## 抽象机制
 
 ### 消息抽象
 `Mail` 对象，每一个邮件都封装在一个对象中。
 
 ```Python
-class Mail():
+class Mail:
     def __init__(self):
         pass
 
@@ -50,14 +52,44 @@ class Mail():
         pass
 ```
 
-
 ## 插件机制
 在 ./plugins 下，每一个插件占一个文件夹。
 
 ### 同步插件抽象
-
+发送操作（接受一个Mail对象）
+同步机制：
 
 
 ### 分类插件抽象
+包含多个 `Judge` 对象。
 
+```Python
+class Judge:
+    def __init__(self, config): #config 为用户配置
+        self.description = "" #简短条件描述
+        self.detail = "" #说明细节
 
+    def judge(self, mail):
+        pass
+        #返回真或者假
+```
+
+For Example:
+
+```Python
+class Judge:
+    def __init__(self, config):
+        self.description = "是垃圾邮件" #简短条件描述
+        self.detail = "通过关键词判断是否为垃圾邮件" #说明细节
+        self.keywords = config["keywords"]
+        
+    def judge(self, mail):
+        for i in self.keywords:
+            if i in mail.TEXT:
+                return True
+        return False
+```
+
+改进：  
+
+有没有可能存在非布尔值判断的需求？如何对此类进行抽象?
