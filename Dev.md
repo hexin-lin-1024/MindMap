@@ -56,9 +56,23 @@ class Mail:
 在 ./plugins 下，每一个插件占一个文件夹。
 
 ### 同步插件抽象
-发送操作（接受一个Mail对象）
-同步机制：
+发送操作（接受一个Mail对象）  
 
+同步机制： 
+
+WebSocket(RestFul API)同步/消息队列同步？  
+
+如何实现实时接收，是否针对不同类型（定时抓取：时间触发器；实时收取：队列；等）提供框架？  
+
+```Python
+class Sync:
+    def __init__(self, config): #config 为用户配置
+        self.description = "" #简短条件描述
+        self.detail = "" #说明细节
+
+    def send(self, mail):
+        pass
+```
 
 ### 分类插件抽象
 包含多个 `Judge` 对象。
@@ -93,3 +107,5 @@ class Judge:
 改进：  
 
 有没有可能存在非布尔值判断的需求？如何对此类进行抽象?
+
+`config` 的可视化机制：`config["vis"]` 中存储可视化模板？
